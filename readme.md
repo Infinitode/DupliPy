@@ -123,4 +123,4 @@ The modified license clause grants users the permission to make derivative works
 
 By enforcing this distinction, it aims to prevent direct publishing of the source code without changes while allowing users to create derivative works that incorporate the code but are not exactly the same.
 
-Please read the full license terms in the [LICENSE](https://github.com/your-username/duplipy/blob/main/LICENSE) file for complete details.
+Please read the full license terms in the [LICENSE](https://github.com/infinitode/duplipy/blob/main/LICENSE) file for complete details.
