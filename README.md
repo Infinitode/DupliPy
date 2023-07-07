@@ -1,4 +1,4 @@
-# DupliPy 0.1.1
+# DupliPy 0.1.6
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP.
 
