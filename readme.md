@@ -1,8 +1,11 @@
 # DupliPy 0.1.9
-![PyPI Version](https://img.shields.io/pypi/v/duplipy)
 ![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)
+![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
+![Downloads](https://pepy.tech/badge/duplipy)
+![License Compliance](https://img.shields.io/badge/license-compliance-brightgreen.svg)
+![PyPI Version](https://img.shields.io/pypi/v/duplipy)
 
-An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP.
+An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
 
 ## Changes to DupliPy
 
