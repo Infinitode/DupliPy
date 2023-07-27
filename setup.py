@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='duplipy',
-    version='0.1.7',
+    version='0.1.9',
     author='Infinitode Pty Ltd',
     author_email='infinitode.ltd@gmail.com',
     description='A package for formatting and text replication, with added support for image augmentation.',

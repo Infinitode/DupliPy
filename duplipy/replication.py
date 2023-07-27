@@ -17,10 +17,8 @@ Available functions:
 - `resize(image, size)`: Resize the input image to the specified size.
 - `crop(image, box)`: Crop the input image to the specified rectangular region.
 - `random_crop(image, size)`: Randomly crop a region from the input image.
-- `perform_image_augmentation(source_dir, target_dir, flip_horizontal=False, flip_vertical=False, rotate=False, random_rotation=False, resize=False, crop=False, max_angle=30, target_size=(224, 224), crop_size=(150, 150))`: Perform image augmentation on images in the source directory and its subdirectories.
 """
 
-import os
 import random
 import time
 import nltk
@@ -330,72 +328,3 @@ def random_crop(image, size):
     right = left + size[0]
     lower = upper + size[1]
     return crop(image, (left, upper, right, lower))
-
-def perform_image_augmentation(
-    source_dir,
-    target_dir,
-    flip_horizontal=False,
-    flip_vertical=False,
-    rotate=False,
-    random_rotation=False,
-    resize=False,
-    crop=False,
-    max_angle=30,
-    target_size=(224, 224),
-    crop_size=(150, 150)
-):
-    """
-    Perform image augmentation on images in the source directory and its subdirectories.
-
-    Parameters:
-    - `source_dir` (str): The path to the source directory containing the images.
-    - `target_dir` (str): The path to the target directory where augmented images will be saved.
-    - `flip_horizontal` (bool): Perform horizontal flipping if True. Default is False.
-    - `flip_vertical` (bool): Perform vertical flipping if True. Default is False.
-    - `rotate` (bool): Perform rotation if True. Default is False.
-    - `random_rotation` (bool): Perform random rotation if True. Default is False.
-    - `resize` (bool): Perform resizing if True. Default is False.
-    - `crop` (bool): Perform cropping if True. Default is False.
-    - `max_angle` (float): The maximum absolute angle of rotation in degrees. Default is 30.
-    - `target_size` (tuple): The target size for resizing in the format (width, height). Default is (224, 224).
-    - `crop_size` (tuple): The size of the cropped region in the format (width, height). Default is (150, 150).
-    """
-
-    def augment_image(image_path):
-        image = Image.open(image_path)
-
-        if flip_horizontal and random.random() > 0.5:
-            image = flip_horizontal(image)
-
-        if flip_vertical and random.random() > 0.5:
-            image = flip_vertical(image)
-
-        if rotate and random.random() > 0.5:
-            image = rotate(image, max_angle)
-
-        if random_rotation and random.random() > 0.5:
-            image = random_rotation(image, max_angle)
-
-        if resize and random.random() > 0.5:
-            image = resize(image, target_size)
-
-        if crop and random.random() > 0.5:
-            image = random_crop(image, crop_size)
-
-        target_path = os.path.join(target_dir, os.path.relpath(image_path, source_dir))
-        os.makedirs(os.path.dirname(target_path), exist_ok=True)
-        image.save(target_path)
-
-    num_images = 0
-    num_directories = 0
-
-    for root, _, files in os.walk(source_dir):
-        num_directories += 1
-        for file in files:
-            if file.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
-                num_images += 1
-                image_path = os.path.join(root, file)
-                augment_image(image_path)
-                print(f"Processed {num_images} images in {num_directories} directories.", end='\r')
-
-    print("\nImage augmentation completed successfully.")
