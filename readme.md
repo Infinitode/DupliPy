@@ -1,4 +1,6 @@
 # DupliPy 0.1.9
+![PyPI Version](https://img.shields.io/pypi/v/duplipy)
+![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP.
 
@@ -112,6 +114,43 @@ text2 = "Hi! How are you doing?"
 # Calculate cosine similarity
 bleu_value = bleu_score(text1, text2)
 print(bleu_value)  # Output: 0.434
+```
+
+### Image Augmentation
+
+```python
+from PIL import Image
+from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop
+
+# Load an image for testing
+image_path = "path/to/image.jpg"
+image = Image.open(image_path)
+
+# Flip the image horizontally
+flipped_horizontal_image = flip_horizontal(image)
+
+# Flip the image vertically
+flipped_vertical_image = flip_vertical(image)
+
+# Rotate the image by a specific angle (e.g., 45 degrees)
+rotated_image = rotate(image, 45)
+
+# Apply a random rotation to the image within a specified range of angles (e.g., -30 to 30 degrees)
+randomly_rotated_image = random_rotation(image, max_angle=30)
+
+# Resize the image to a specific target size (e.g., 224x224 pixels)
+resized_image = resize(image, target_size=(224, 224))
+
+# Crop a random region from the image (e.g., 150x150 pixels)
+randomly_cropped_image = random_crop(image, crop_size=(150, 150))
+
+# Save the augmented images (optional, if you want to view the results)
+flipped_horizontal_image.save("path/to/flipped_horizontal.jpg")
+flipped_vertical_image.save("path/to/flipped_vertical.jpg")
+rotated_image.save("path/to/rotated.jpg")
+randomly_rotated_image.save("path/to/randomly_rotated.jpg")
+resized_image.save("path/to/resized.jpg")
+randomly_cropped_image.save("path/to/randomly_cropped.jpg")
 ```
 
 ## Contributing
