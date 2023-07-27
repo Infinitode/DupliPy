@@ -1,6 +1,13 @@
-# DupliPy 0.1.1
+# DupliPy 0.1.7
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP.
+
+## Changes to DupliPy 0.1.7
+
+DupliPy now offers support for image augmentation, with functions to rotate, resize and crop images. These are available through:
+```python
+from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop, perform_image_augmentation
+```
 
 ## Installation
 
