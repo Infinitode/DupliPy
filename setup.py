@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='duplipy',
-    version='0.1.9',
+    version='0.2.0',
     author='Infinitode Pty Ltd',
     author_email='infinitode.ltd@gmail.com',
     description='A package for formatting and text replication, with added support for image augmentation.',
@@ -19,7 +19,7 @@ setup(
         'pillow',
     ],
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
@@ -29,6 +29,7 @@ setup(
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
     python_requires='>=3.6',
 )

@@ -32,6 +32,9 @@ def remove_stopwords(text):
     """
     Remove stopwords from the input text using NLTK's stopwords.
 
+    Stopwords are frequently used words (e.g., 'the', 'and', 'is') that are often
+    excluded from text processing to focus on more meaningful content.
+    
     Parameters:
     - `text` (str): The input text from which stopwords should be removed.
 
@@ -52,6 +55,8 @@ def remove_numbers(text):
     """
     Remove numbers from the input text.
 
+    Numerical digits are removed from the text to focus on the non-numeric content.
+    
     Parameters:
     - `text` (str): The input text from which numbers should be removed.
 
@@ -69,6 +74,9 @@ def remove_whitespace(text):
     """
     Remove excess whitespace from the input text.
 
+    Excess whitespace, including leading, trailing, and multiple consecutive spaces,
+    is removed from the text to create a more standardized and readable format.
+    
     Parameters:
     - `text` (str): The input text from which excess whitespace should be removed.
 
@@ -86,6 +94,9 @@ def normalize_whitespace(text):
     """
     Normalize multiple whitespaces into a single whitespace in the input text.
 
+    Multiple consecutive whitespaces are replaced with a single whitespace to
+    create a more consistent and readable text format.
+    
     Parameters:
     - `text` (str): The input text from which whitespace should be normalized.
 
@@ -103,6 +114,9 @@ def separate_symbols(text):
     """
     Separate symbols and words with a space to ease tokenization.
 
+    Symbols in the input text are separated from words with a space to facilitate
+    easier tokenization and analysis of the text.
+    
     Parameters:
     - `text` (str): The input text from which symbols needs to be seperated.
 
@@ -121,6 +135,9 @@ def remove_special_characters(text):
     """
     Remove special characters from the input text.
 
+    Special characters, such as punctuation and user-defined symbols, are removed
+    to create a text without these non-alphanumeric elements.
+    
     Parameters:
     - `text` (str): The input text from which special characters should be removed.
 
@@ -140,6 +157,9 @@ def standardize_text(text):
     """
     Standardize the formatting of the input text.
 
+    The input text is converted to lowercase and leading/trailing whitespaces are removed
+    to create a standardized representation for easier comparison and analysis.
+
     Parameters:
     - `text` (str): The input text which needs to be standardized.
 
@@ -158,6 +178,10 @@ def tokenize_text(text):
     """
     Tokenize the input text into individual words.
 
+    Tokenization is the process of breaking down a text into individual words, 
+    facilitating further analysis, such as counting word frequencies or analyzing 
+    language patterns.
+    
     Parameters:
     - `text` (str): The input text to be tokenized.
 
@@ -170,6 +194,9 @@ def tokenize_text(text):
 def stem_words(words):
     """
     Stem the input words using Porter stemming algorithm.
+
+    Stemming reduces words to their base or root form, helping to consolidate 
+    variations of words and simplify text analysis.
 
     Parameters:
     - `words` (list): A list of words to be stemmed.
@@ -185,6 +212,9 @@ def lemmatize_words(words):
     """
     Lemmatize the input words using WordNet lemmatization.
 
+    Lemmatization reduces words to their base or dictionary form, helping to 
+    normalize variations and simplify text analysis.
+    
     Parameters:
     - `words` (list): A list of words to be lemmatized.
 
@@ -199,6 +229,9 @@ def pos_tag(text):
     """
     Perform part-of-speech (POS) tagging on the input text.
 
+    Part-of-speech tagging assigns a grammatical category (tag) to each word 
+    in a text, aiding in syntactic analysis and understanding sentence structure.
+    
     Parameters:
     - `text` (str): The input text to be POS tagged.
 

@@ -14,6 +14,9 @@ def analyze_sentiment(text):
     """
     Analyze the sentiment of the input text using NLTK's SentimentIntensityAnalyzer.
 
+    Sentiment analysis assesses the emotional tone of a text, providing a sentiment
+    score ranging from -1 (negative) to 1 (positive).
+    
     Parameters:
     - `text` (str): The input text to be analyzed.
 

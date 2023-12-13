@@ -17,6 +17,7 @@ Available functions:
 - `resize(image, size)`: Resize the input image to the specified size.
 - `crop(image, box)`: Crop the input image to the specified rectangular region.
 - `random_crop(image, size)`: Randomly crop a region from the input image.
+- `shuffle_words(text)`: Randomly shuffle the order of words in each sentence.
 """
 
 import random
@@ -24,6 +25,7 @@ import time
 import nltk
 from nltk.corpus import wordnet
 from PIL import Image
+import tqdm
 
 nltk.download("wordnet", quiet=True)
 nltk.download("averaged_perceptron_tagger", quiet=True)
@@ -33,6 +35,9 @@ def replace_word_with_synonym(word):
     """
     Replace the given word with a synonym.
 
+    Synonyms are alternative words with similar meanings, and replacing words
+    with synonyms can be used for text augmentation or variation.
+    
     Params:
     - `word` (str): The input word to replace with a synonym.
 
@@ -155,6 +160,9 @@ def insert_random_word(text, word):
     """
     Insert a random word into the input text.
 
+    This function randomly inserts a specified word into the input text, creating
+    variations for text augmentation or diversification.
+
     Parameters:
     - `text` (str): The input text for word insertion.
     - `word` (str): The word to be inserted into the text.
@@ -176,6 +184,9 @@ def delete_random_word(text):
     """
     Delete a random word from the input text.
 
+    This function randomly deletes a word from the input text, creating variations
+    for text augmentation or diversity.
+    
     Parameters:
     - `text` (str): The input text for word deletion.
 
@@ -197,6 +208,9 @@ def insert_synonym(text, word):
     """
     Insert a synonym of the given word into the input text.
 
+    This function replaces the specified word in the input text with a synonym,
+    introducing variations for text augmentation or diversity.
+    
     Parameters:
     - `text` (str): The input text for synonym insertion.
     - `word` (str): The word for which a synonym will be inserted.
@@ -217,6 +231,9 @@ def paraphrase(text):
     """
     Paraphrase the input text.
 
+    This function leverages part-of-speech tagging to identify verbs (VB), nouns (NN),
+    and adjectives (JJ) in the input text, replacing them with synonyms for paraphrasing.
+    
     Parameters:
     - `text` (str): The input text to be paraphrased.
 
@@ -328,3 +345,29 @@ def random_crop(image, size):
     right = left + size[0]
     lower = upper + size[1]
     return crop(image, (left, upper, right, lower))
+
+# DupliPy 0.2.0
+
+def shuffle_words(text):
+    """
+    Randomly shuffle the order of words in each sentence.
+
+    This function takes a list of sentences and randomly shuffles the order of words
+    in each sentence, creating variations for text augmentation or diversity.
+    
+    Parameters:
+    - `text` (list of str): List of sentences where each sentence's words needs to be shuffled.
+
+    Returns:
+    - `list of str`: List of sentences with randomly shuffled words.
+    """
+    # Shuffle the order of words in each sentence
+    shuffled_text = []
+    with tqdm(total=len(text), desc="Shuffling Words") as pbar:
+        for sentence in text:
+            words = sentence.split()
+            shuffled_words = random.sample(words, len(words))
+            shuffled_sentence = ' '.join(shuffled_words)
+            shuffled_text.append(shuffled_sentence)
+            pbar.update(1)
+    return shuffled_text

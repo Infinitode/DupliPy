@@ -1,5 +1,5 @@
-# DupliPy 0.1.9
-![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)
+# DupliPy 0.2.0
+![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
 ![License Compliance](https://img.shields.io/badge/license-compliance-brightgreen.svg)
@@ -7,12 +7,9 @@
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
 
-## Changes to DupliPy
+## Changes to DupliPy 0.2.0
 
-DupliPy now offers support for image augmentation, with functions to rotate, resize and crop images. These are available through:
-```python
-from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop
-```
+DupliPy now includes useful method descriptions in docstrings, allowing anyone to quickly see what a method does and why it is used. DupliPy also now includes a few extra methods in `replication` and `similarity`, including `shuffle_words()` and `jaccard_similarity_score()` .
 
 ## Installation
 
@@ -32,6 +29,7 @@ DupliPy supports the following Python versions:
 - Python 3.9
 - Python 3.10
 - Python 3.11
+- Python 3.12
 
 Please ensure that you have one of these Python versions installed before using DupliPy. DupliPy may not work as expected on lower versions of Python than the supported.
 
@@ -42,6 +40,9 @@ Please ensure that you have one of these Python versions installed before using 
 - Sentiment Analysis: Find impressions within sentences.
 - Similarity Calculation: Calculate text similarity using various metrics.
 - BLEU Score Calculation: Calculate how well your text-based NLP model performs.
+- Image Augmentation Tasks **(NEW)**
+
+*For full reference documentation view [DupliPy's official documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation).*
 
 ## Usage
 
