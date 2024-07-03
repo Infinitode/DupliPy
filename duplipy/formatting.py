@@ -264,7 +264,7 @@ def remove_profanity_from_text(text):
     """
     sentences = nltk.sent_tokenize(text)
     cleaned_sentences = remove_profanity(sentences, language='All')
-    cleaned_text = '. '.join(cleaned_sentences)
+    cleaned_text = ' '.join(cleaned_sentences)
 
     return cleaned_text
 
@@ -282,7 +282,7 @@ def remove_sensitive_info_from_text(text):
     """
     sentences = nltk.sent_tokenize(text)
     cleaned_sentences = remove_sensitive_information(sentences)
-    cleaned_text = '. '.join(cleaned_sentences)
+    cleaned_text = ' '.join(cleaned_sentences)
 
     return cleaned_text
 
@@ -304,6 +304,6 @@ def remove_hate_speech_from_text(text):
         outcome = detect_hate_speech(sentence)
         if outcome != ['Hate Speech'] and outcome != ['Offensive Speech'] and outcome == ['No Hate and Offensive Speech']:
             cleaned_sentences.append(sentence)
-    cleaned_text = '. '.join(cleaned_sentences)
+    cleaned_text = ' '.join(cleaned_sentences)
 
     return cleaned_text
