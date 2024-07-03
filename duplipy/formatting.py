@@ -13,12 +13,16 @@ Available functions:
 - `stem_words(words)`: Stem the input words using Porter stemming algorithm.
 - `lemmatize_words(words)`: Lemmatize the input words using WordNet lemmatization.
 - `pos_tag(text)`: Perform part-of-speech (POS) tagging on the input text.
+- `remove_profanity_from_text(text)`: Remove profane words from the input text.
+- `remove_sensitive_info_from_text(text)`: Remove sensitive information from the input text.
+- `remove_hate_speech_from_text(text)`: Remove hate speech or offensive speech from the input text.
 """
 
 
 import string
 import re
 import nltk
+from valx import remove_profanity, remove_sensitive_information, detect_hate_speech
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -245,3 +249,61 @@ def pos_tag(text):
     except Exception as e:
         print(f"An error occurred during POS tagging: {str(e)}")
         return []
+
+def remove_profanity_from_text(text):
+    """
+    Remove profane words from the input text.
+
+    This ensures that text is clean and does not contain inappropriate language.
+    
+    Parameters:
+    - `text` (str): The input text to remove profanity from.
+
+    Returns:
+    - `text` (str): The cleaned output text.
+    """
+    sentences = nltk.sent_tokenize(text)
+    cleaned_sentences = remove_profanity(sentences, language='All')
+    cleaned_text = '. '.join(cleaned_sentences)
+
+    return cleaned_text
+
+def remove_sensitive_info_from_text(text):
+    """
+    Remove sensitive information from the input text.
+
+    This can be useful for depersonalization of text data.
+    
+    Parameters:
+    - `text` (str): The input text to remove sensitive information from.
+
+    Returns:
+    - `text` (str): The cleaned output text.
+    """
+    sentences = nltk.sent_tokenize(text)
+    cleaned_sentences = remove_sensitive_information(sentences)
+    cleaned_text = '. '.join(cleaned_sentences)
+
+    return cleaned_text
+
+def remove_hate_speech_from_text(text):
+    """
+    Remove hate speech or offensive speech from the input text.
+
+    This function removes sentences, and not just a certain word, because it is context relevant.
+    
+    Parameters:
+    - `text` (str): The input text to remove hate speech and offensive speech from.
+
+    Returns:
+    - `text` (str): The cleaned output text.
+    """
+    sentences = nltk.sent_tokenize(text)
+    cleaned_sentences = []
+    for sentence in sentences:
+        outcome = detect_hate_speech(sentence)
+        if outcome != ['Hate Speech'] and outcome != ['Offensive Speech'] and outcome == ['No Hate and Offensive Speech']:
+            cleaned_sentences.append(sentence)
+    cleaned_text = '. '.join(cleaned_sentences)
+
+    return cleaned_text

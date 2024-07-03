@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='duplipy',
-    version='0.2.0',
+    version='{{VERSION_PLACEHOLDER}}',
     author='Infinitode Pty Ltd',
     author_email='infinitode.ltd@gmail.com',
     description='A package for formatting and text replication, with added support for image augmentation.',
@@ -17,6 +17,7 @@ setup(
         'joblib',
         'tqdm',
         'pillow',
+        'valx'
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

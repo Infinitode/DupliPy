@@ -1,4 +1,4 @@
-# DupliPy 0.2.0
+# DupliPy 0.2.1
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
@@ -7,9 +7,9 @@
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
 
-## Changes to DupliPy 0.2.0
+## Changes to DupliPy 0.2.1
 
-DupliPy now includes useful method descriptions in docstrings, allowing anyone to quickly see what a method does and why it is used. DupliPy also now includes a few extra methods in `replication` and `similarity`, including `shuffle_words()` and `jaccard_similarity_score()` .
+Duplipy now utilizes another one of our Python packages, called ValX, which provides quick methods we can use to clean and format our text data before training in preprocessing steps.
 
 ## Installation
 
@@ -29,7 +29,7 @@ DupliPy supports the following Python versions:
 - Python 3.9
 - Python 3.10
 - Python 3.11
-- Python 3.12
+- Python 3.12 or later
 
 Please ensure that you have one of these Python versions installed before using DupliPy. DupliPy may not work as expected on lower versions of Python than the supported.
 
@@ -40,7 +40,8 @@ Please ensure that you have one of these Python versions installed before using 
 - Sentiment Analysis: Find impressions within sentences.
 - Similarity Calculation: Calculate text similarity using various metrics.
 - BLEU Score Calculation: Calculate how well your text-based NLP model performs.
-- Image Augmentation Tasks **(NEW)**
+- Image Augmentation Tasks.
+- Profanity removal, hate speech removal, offensive speech removal, and sensitive information removal.
 
 *For full reference documentation view [DupliPy's official documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation).*
 
@@ -155,6 +156,19 @@ rotated_image.save("path/to/rotated.jpg")
 randomly_rotated_image.save("path/to/randomly_rotated.jpg")
 resized_image.save("path/to/resized.jpg")
 randomly_cropped_image.save("path/to/randomly_cropped.jpg")
+```
+
+### Hate speech and Offensive speech removal using AI
+
+```python
+from duplipy.formatting import remove_hate_speech_from_text
+
+text = "I hate all of you bad word! Can't you just bad word leave me alone! Hi, I'm Katy."
+
+print(remove_hate_speech_from_text(text))
+
+### Output
+# "Hi, I'm Katy."
 ```
 
 ## Contributing
