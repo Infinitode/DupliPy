@@ -86,7 +86,7 @@ print(augmented_file_text)
 ### Sentiment Analysis
 
 ```python
-from duplipy.sentiment import analyze_sentiment
+from duplipy.text_analysis import analyze_sentiment
 
 text = "I love this product! It's amazing!"
 
