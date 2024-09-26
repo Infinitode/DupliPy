@@ -1,6 +1,5 @@
 from duplipy import *
 
-
 text = "The quick    brown fox jumps over the lazy dog.545 g w 4       "
 print("Removed stopwords: ", remove_stopwords(text))
 print("Removed numbers: ", remove_numbers(text))

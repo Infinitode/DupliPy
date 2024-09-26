@@ -1,4 +1,4 @@
-# DupliPy 0.2.2
+# DupliPy 0.2.3
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
@@ -7,7 +7,7 @@
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
 
-## Changes to DupliPy 0.2.2
+## Changes to DupliPy 0.2.3
 
 Duplipy now utilizes another one of our Python packages, called ValX, which provides quick methods we can use to clean and format our text data before training in preprocessing steps.
 

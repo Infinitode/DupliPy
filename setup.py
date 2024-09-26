@@ -1,12 +1,15 @@
 from setuptools import setup, find_packages
 
+with open("readme.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
 setup(
     name='duplipy',
     version='{{VERSION_PLACEHOLDER}}',
     author='Infinitode Pty Ltd',
     author_email='infinitode.ltd@gmail.com',
-    description='A package for formatting and text replication, with added support for image augmentation.',
-    long_description='DupliPy is a quick and easy-to-use package that can handle text formatting and data augmentation tasks for NLP in Python, with added support for image augmentation.',
+    description='DupliPy is a quick and easy-to-use package that can handle text formatting and data augmentation tasks for NLP in Python, with added support for image augmentation.',
+    long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/infinitode/duplipy',
     packages=find_packages(),
