@@ -1,7 +1,7 @@
 import unittest
 import os
 from PIL import Image
-from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop
+from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop, random_flip, random_color_jitter, noise_overlay
 
 class TestImageAugmentation(unittest.TestCase):
 
@@ -47,6 +47,21 @@ class TestImageAugmentation(unittest.TestCase):
         random_cropped_image = random_crop(self.test_image, (50, 50))
         self.assertTrue(isinstance(random_cropped_image, Image.Image))
         self.assertEqual(random_cropped_image.size, (50, 50))
+
+    def test_random_flip(self):
+        random_flipped_image = random_flip(self.test_image)
+        self.assertTrue(isinstance(random_flipped_image, Image.Image))
+        self.assertEqual(random_flipped_image.size, self.test_image.size)
+
+    def test_random_color_jitter(self):
+        jittered_image = random_color_jitter(self.test_image, brightness=0.5, contrast=0.5, saturation=0.5, hue=0.5)
+        self.assertTrue(isinstance(jittered_image, Image.Image))
+        self.assertEqual(jittered_image.size, self.test_image.size)
+
+    def test_noise_overlay(self):
+        noisy_image = noise_overlay(self.test_image, noise_factor=0.5)
+        self.assertTrue(isinstance(noisy_image, Image.Image))
+        self.assertEqual(noisy_image.size, self.test_image.size)
 
 
 if __name__ == "__main__":

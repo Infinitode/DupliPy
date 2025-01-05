@@ -19,3 +19,7 @@ print("Edit distance score between Hi and Hello: ", edit_distance_score("hi", "h
 print("BLEU score calculation: ", bleu_score("Hello, how are you?", "Hi, how are you doing?"))
 
 print("Analyze sentiment: ", analyze_sentiment(text))
+
+textFormatting = "This is a test sentence ,John, how are you  ?  It  has a few words in it . It is a test sentence ."
+
+print(post_format_text(textFormatting))

@@ -1,4 +1,4 @@
-# DupliPy 0.2.3
+# DupliPy 0.2.4
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
@@ -6,6 +6,11 @@
 ![PyPI Version](https://img.shields.io/pypi/v/duplipy)
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
+
+## Changes in DupliPy 0.2.4
+
+- Created new functions in `duplipy.replication` for image augmentation: `random_flip`, `random_color_jitter`, and `noise_overlay`.
+- Created a new function (`post_format_text`) for post-formatting after DupliPy processing or augmentation tasks that cleans up extra whitespace and normalizes punctuation spacing.
 
 ## Changes to DupliPy 0.2.3
 

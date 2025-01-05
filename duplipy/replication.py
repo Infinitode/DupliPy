@@ -18,6 +18,9 @@ Available functions:
 - `crop(image, box)`: Crop the input image to the specified rectangular region.
 - `random_crop(image, size)`: Randomly crop a region from the input image.
 - `shuffle_words(text)`: Randomly shuffle the order of words in each sentence.
+- `random_flip(image, horizontal, vertical)`: Randomly flip the input image horizontally and/or vertically.
+- `random_color_jitter(image, brightness, contrast, saturation, hue)`: Randomly adjust the brightness, contrast, saturation, and hue of the input image.
+- `noise_overlay(image, noise_factor, noise_type, grain_factor)`: Overlay noise on the input image.
 """
 
 import random
@@ -26,6 +29,7 @@ import nltk
 from nltk.corpus import wordnet
 from PIL import Image
 import tqdm
+from PIL import ImageEnhance
 
 nltk.download("wordnet", quiet=True)
 nltk.download("averaged_perceptron_tagger", quiet=True)
@@ -371,3 +375,93 @@ def shuffle_words(text):
             shuffled_text.append(shuffled_sentence)
             pbar.update(1)
     return shuffled_text
+
+def random_flip(image, horizontal=True, vertical=True):
+    """
+    Randomly flip the input image horizontally and/or vertically.
+
+    Parameters:
+    - `image` (PIL.Image.Image): The input image to be flipped.
+    - `horizontal` (bool): Whether to flip the image horizontally.
+    - `vertical` (bool): Whether to flip the image vertically.
+
+    Returns:
+    - `PIL.Image.Image`: The randomly flipped image.
+    """
+    if horizontal and vertical:
+        flip = random.choice([Image.FLIP_LEFT_RIGHT, Image.FLIP_TOP_BOTTOM, Image.ROTATE_180])
+    elif horizontal:
+        flip = Image.FLIP_LEFT_RIGHT
+    elif vertical:
+        flip = Image.FLIP_TOP_BOTTOM
+    else:
+        return image
+
+    return image.transpose(flip)
+
+def random_color_jitter(image, brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1):
+    """
+    Randomly adjust the brightness, contrast, saturation, and hue of the input image.
+
+    Parameters:
+    - `image` (PIL.Image.Image): The input image to be color-jittered.
+    - `brightness` (float): The maximum factor to adjust brightness.
+    - `contrast` (float): The maximum factor to adjust contrast.
+    - `saturation` (float): The maximum factor to adjust saturation.
+    - `hue` (float): The maximum factor to adjust hue.
+
+    Returns:
+    - `PIL.Image.Image`: The color-jittered image.
+    """
+    image = ImageEnhance.Brightness(image).enhance(1 + random.uniform(-brightness, brightness))
+    image = ImageEnhance.Contrast(image).enhance(1 + random.uniform(-contrast, contrast))
+    image = ImageEnhance.Color(image).enhance(1 + random.uniform(-saturation, saturation))
+
+    h, s, v = image.convert("HSV").split()
+    hue_factor = int(255 * random.uniform(-hue, hue))
+    h = h.point(lambda i: (i + hue_factor) % 256)
+    image = Image.merge("HSV", (h, s, v)).convert("RGB")
+
+    return image
+
+def noise_overlay(image, noise_factor=0.1, noise_type="gaussian", grain_factor=0.0):
+    """
+    Overlay noise on the input image.
+
+    Parameters:
+        - `image` (PIL.Image.Image): The input image to overlay noise on.
+        - `noise_factor` (float): The factor to control the intensity of the noise (0.0 to 1.0).
+        - `noise_type` (str): The type of noise to overlay ("gaussian", "salt_and_pepper"). Defaults to "gaussian".
+        - `grain_factor` (float): The factor to control the graininess of the noise (0.0 to 1.0). Defaults to 0.0.
+
+    Returns:
+        - `PIL.Image.Image`: The image with overlaid noise.
+    """
+    noise = Image.new("RGB", image.size)
+
+    if noise_type == "gaussian":
+        # Generate random Gaussian noise with mean 128 and standard deviation proportional to noise_factor
+        for x in range(noise.width):
+            for y in range(noise.height):
+                noise_value = int(128 + random.gauss(0, noise_factor * 255))
+                noise.putpixel((x, y), (noise_value, noise_value, noise_value))
+    elif noise_type == "salt_and_pepper":
+        # Generate salt and pepper noise with probability proportional to noise_factor
+        for x in range(noise.width):
+            for y in range(noise.height):
+                if random.random() < noise_factor:
+                    noise_value = 0 if random.random() < 0.5 else 255
+                    noise.putpixel((x, y), (noise_value, noise_value, noise_value))
+    else:
+        raise ValueError(f"Invalid noise type: {noise_type}")
+
+    # Add grain effect by scaling random noise and blending with original image
+    grain_noise = Image.new("RGB", image.size)
+    for x in range(grain_noise.width):
+        for y in range(grain_noise.height):
+            noise_value = int(random.uniform(-grain_factor * 255, grain_factor * 255))
+            grain_noise.putpixel((x, y), (noise_value, noise_value, noise_value))
+
+    blended_noise = Image.blend(noise, grain_noise, grain_factor)
+
+    return Image.blend(image, blended_noise, noise_factor)

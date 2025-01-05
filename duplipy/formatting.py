@@ -16,8 +16,8 @@ Available functions:
 - `remove_profanity_from_text(text)`: Remove profane words from the input text.
 - `remove_sensitive_info_from_text(text)`: Remove sensitive information from the input text.
 - `remove_hate_speech_from_text(text)`: Remove hate speech or offensive speech from the input text.
+- `post_format_text(text)`: Post-format the text using regex.
 """
-
 
 import string
 import re
@@ -307,3 +307,22 @@ def remove_hate_speech_from_text(text):
     cleaned_text = ' '.join(cleaned_sentences)
 
     return cleaned_text
+
+def post_format_text(text):
+    """
+    Post-format the text using regex.
+
+    This function post-formats the text by removing extra spaces and ensuring
+    proper punctuation spacing.
+
+    Parameters:
+    - `text` (str): The input text to be post-formatted.
+
+    Returns:
+    - `str`: The post-formatted text.
+    """
+    # Remove extra spaces
+    text = re.sub(r'\s+', ' ', text)
+    # Ensure proper punctuation spacing
+    text = re.sub(r'\s([.,!?;:])', r'\1', text)
+    return text
