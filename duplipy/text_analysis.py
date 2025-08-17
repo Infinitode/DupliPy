@@ -48,6 +48,7 @@ def named_entity_recognition(text):
         nltk.download('punkt', quiet=True)
         nltk.download('averaged_perceptron_tagger', quiet=True)
         nltk.download('maxent_ne_chunker', quiet=True)
+        nltk.download('maxent_ne_chunker_tab', quiet=True)
         nltk.download('words', quiet=True)
         tokens = nltk.word_tokenize(text)
         tagged = nltk.pos_tag(tokens)
