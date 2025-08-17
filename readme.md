@@ -1,4 +1,4 @@
-# DupliPy 0.2.4
+# DupliPy 0.2.5
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
@@ -6,6 +6,14 @@
 ![PyPI Version](https://img.shields.io/pypi/v/duplipy)
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
+
+## Changes in DupliPy 0.2.5
+
+- Added new text augmentation functions: `swap_random_words` and `random_word_deletion`.
+- Added new text similarity metrics: `sorensen_dice_coefficient` and `cosine_similarity_score`.
+- Added new image similarity metrics: `mean_squared_error` and `psnr`.
+- Added new text analysis function: `named_entity_recognition`.
+- Improved progress bars for augmentation functions.
 
 ## Changes in DupliPy 0.2.4
 
@@ -43,8 +51,9 @@ Please ensure that you have one of these Python versions installed before using 
 - Text Formatting: Remove special characters, standardize text formatting.
 - Text Replication: Generate replicated instances of text for data augmentation.
 - Sentiment Analysis: Find impressions within sentences.
-- Similarity Calculation: Calculate text similarity using various metrics.
+- Similarity Calculation: Calculate text and image similarity using various metrics.
 - BLEU Score Calculation: Calculate how well your text-based NLP model performs.
+- Named Entity Recognition: Identify and categorize key information in text.
 - Image Augmentation Tasks.
 - Profanity removal, hate speech removal, offensive speech removal, and sensitive information removal.
 
@@ -71,7 +80,7 @@ print(standardized_text)  # Output: hello! this is some text
 ### Text Replication
 
 ```python
-from duplipy.replication import replace_word_with_synonym, augment_text_with_synonyms
+from duplipy.replication import replace_word_with_synonym, augment_text_with_synonyms, swap_random_words, random_word_deletion
 
 text = "Hello! This is some text."
 
@@ -79,13 +88,13 @@ text = "Hello! This is some text."
 augmented_text = augment_text_with_synonyms(text, augmentation_factor=3, probability=0.5)
 print(augmented_text)
 
-# Output:
-# ['Hello! This is some text.', 'Hi! This is some text.', 'Hello! This is certain text.']
+# Swap random words
+swapped_text = swap_random_words(text)
+print(swapped_text)
 
-# Load text from a file and augment it
-file_path = "path/to/file.txt"
-augmented_file_text = augment_file_with_synonyms(file_path, augmentation_factor=3, probability=0.5)
-print(augmented_file_text)
+# Delete random words
+deleted_text = random_word_deletion(text, num_deletions=1)
+print(deleted_text)
 ```
 
 ### Sentiment Analysis
@@ -103,7 +112,7 @@ print(sentiment)  # Output: Positive
 ### Similarity Calculation
 
 ```python
-from duplipy.similarity import edit_distance_score
+from duplipy.similarity import edit_distance_score, sorensen_dice_coefficient, cosine_similarity_score
 
 text1 = "Hello! How are you?"
 text2 = "Hi! How are you doing?"
@@ -111,6 +120,14 @@ text2 = "Hi! How are you doing?"
 # Calculate edit distance
 edit_distance = edit_distance_score(text1, text2)
 print(edit_distance)  # Output: 4
+
+# Calculate Sorensen-Dice coefficient
+dice_coefficient = sorensen_dice_coefficient(text1, text2)
+print(dice_coefficient)
+
+# Calculate cosine similarity
+cosine_sim = cosine_similarity_score(text1, text2)
+print(cosine_sim)
 ```
 
 ### BLEU Score Calculation
@@ -161,6 +178,38 @@ rotated_image.save("path/to/rotated.jpg")
 randomly_rotated_image.save("path/to/randomly_rotated.jpg")
 resized_image.save("path/to/resized.jpg")
 randomly_cropped_image.save("path/to/randomly_cropped.jpg")
+```
+
+### Image Similarity
+
+```python
+from PIL import Image
+from duplipy.similarity import mean_squared_error, psnr
+
+# Load two images for testing
+image1 = Image.open("path/to/image1.jpg")
+image2 = Image.open("path/to/image2.jpg")
+
+# Calculate Mean Squared Error (MSE)
+mse = mean_squared_error(image1, image2)
+print(f"Mean Squared Error: {mse}")
+
+# Calculate Peak Signal-to-Noise Ratio (PSNR)
+psnr_value = psnr(image1, image2)
+print(f"PSNR: {psnr_value}")
+
+```
+
+### Named Entity Recognition
+
+```python
+from duplipy.text_analysis import named_entity_recognition
+
+text = "Apple is looking at buying U.K. startup for $1 billion"
+
+# Perform NER
+entities = named_entity_recognition(text)
+print(entities)
 ```
 
 ### Hate speech and Offensive speech removal using AI

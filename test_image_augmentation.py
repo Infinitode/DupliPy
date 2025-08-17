@@ -2,13 +2,16 @@ import unittest
 import os
 from PIL import Image
 from duplipy.replication import flip_horizontal, flip_vertical, rotate, random_rotation, resize, crop, random_crop, random_flip, random_color_jitter, noise_overlay
+from duplipy.similarity import mean_squared_error, psnr
 
 class TestImageAugmentation(unittest.TestCase):
 
     def setUp(self):
         self.test_image_path = "./test_image.jpg"
-        self.test_image = Image.new("RGB", (500, 500), color="red")
+        self.test_image = Image.new("RGB", (100, 100), color="red")
         self.test_image.save(self.test_image_path)
+        self.test_image2 = Image.new("RGB", (100, 100), color="blue")
+
 
     def tearDown(self):
         os.remove(self.test_image_path)
@@ -62,6 +65,12 @@ class TestImageAugmentation(unittest.TestCase):
         noisy_image = noise_overlay(self.test_image, noise_factor=0.5)
         self.assertTrue(isinstance(noisy_image, Image.Image))
         self.assertEqual(noisy_image.size, self.test_image.size)
+
+    def test_mean_squared_error(self):
+        self.assertGreater(mean_squared_error(self.test_image, self.test_image2), 0)
+
+    def test_psnr(self):
+        self.assertLess(psnr(self.test_image, self.test_image2), 100)
 
 
 if __name__ == "__main__":
