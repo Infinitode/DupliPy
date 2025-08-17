@@ -27,11 +27,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-nltk.download('stopwords', quiet=True)
-nltk.download('punkt', quiet=True)
-nltk.download('wordnet', quiet=True)
-nltk.download('averaged_perceptron_tagger', quiet=True)
-
 def remove_stopwords(text):
     """
     Remove stopwords from the input text using NLTK's stopwords.
@@ -46,6 +41,7 @@ def remove_stopwords(text):
     - `str`: The text without stopwords.
     """
     try:
+        nltk.download('stopwords', quiet=True)
         stop_words = set(stopwords.words('english'))
         tokens = text.split()
         filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
@@ -192,6 +188,7 @@ def tokenize_text(text):
     Returns:
     - `list`: A list of tokens (words) from the input text.
     """
+    nltk.download('punkt', quiet=True)
     tokens = word_tokenize(text)
     return tokens
 
@@ -225,6 +222,7 @@ def lemmatize_words(words):
     Returns:
     - `list`: A list of lemmatized words.
     """
+    nltk.download('wordnet', quiet=True)
     lemmatizer = WordNetLemmatizer()
     lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
     return lemmatized_words
@@ -243,6 +241,8 @@ def pos_tag(text):
     - `list`: A list of tuples containing (word, tag) pairs.
     """
     try:
+        nltk.download('punkt', quiet=True)
+        nltk.download('averaged_perceptron_tagger', quiet=True)
         tokens = nltk.word_tokenize(text)
         tagged_words = nltk.pos_tag(tokens)
         return tagged_words
@@ -262,6 +262,7 @@ def remove_profanity_from_text(text):
     Returns:
     - `text` (str): The cleaned output text.
     """
+    nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
     cleaned_sentences = remove_profanity(sentences, language='All')
     cleaned_text = ' '.join(cleaned_sentences)
@@ -280,6 +281,7 @@ def remove_sensitive_info_from_text(text):
     Returns:
     - `text` (str): The cleaned output text.
     """
+    nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
     cleaned_sentences = remove_sensitive_information(sentences)
     cleaned_text = ' '.join(cleaned_sentences)
@@ -298,6 +300,7 @@ def remove_hate_speech_from_text(text):
     Returns:
     - `text` (str): The cleaned output text.
     """
+    nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
     cleaned_sentences = []
     for sentence in sentences:

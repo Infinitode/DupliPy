@@ -8,6 +8,8 @@ Available functions:
 - `augment_file_with_synonyms(file_path, augmentation_factor, probability, progress=True)`: Augment a text file by replacing words with synonyms.
 - `insert_random_word(text, word)`: Insert a random word into the input text.
 - `delete_random_word(text)`: Delete a random word from the input text.
+- `random_word_deletion(text, num_deletions=1)`: Deletes a user-specified number of random words from the text.
+- `swap_random_words(text)`: Swaps two random words in the text.
 - `insert_synonym(text, word)`: Insert a synonym of the given word into the input text.
 - `paraphrase(text)`: Paraphrase the input text.
 - `flip_horizontal(image)`: Flip the input image horizontally.
@@ -31,10 +33,6 @@ from PIL import Image
 import tqdm
 from PIL import ImageEnhance
 
-nltk.download("wordnet", quiet=True)
-nltk.download("averaged_perceptron_tagger", quiet=True)
-nltk.download("punkt", quiet=True)
-
 def replace_word_with_synonym(word):
     """
     Replace the given word with a synonym.
@@ -49,6 +47,7 @@ def replace_word_with_synonym(word):
     - `str`: The synonym for the word.
     """
     try:
+        nltk.download("wordnet", quiet=True)
         synonyms = []
         for syn in wordnet.synsets(word):
             for lemma in syn.lemmas():
@@ -82,37 +81,20 @@ def augment_text_with_synonyms(text, augmentation_factor, probability, progress=
             raise ValueError("Probability value cannot be of NoneType. Choose a float from 0 to 1")
 
         tokens = text.split()
-        num_tokens = len(tokens)
-        processed_tokens = 0
 
-        start_time = time.time()
+        with tqdm.tqdm(total=augmentation_factor * len(tokens), desc="Augmenting Text", disable=not progress) as pbar:
+            for _ in range(augmentation_factor):
+                augmented_tokens = []
 
-        for _ in range(augmentation_factor):
-            augmented_tokens = []
+                for token in tokens:
+                    if random.random() < probability:
+                        replaced_token = replace_word_with_synonym(token)
+                        augmented_tokens.append(replaced_token)
+                    else:
+                        augmented_tokens.append(token)
+                    pbar.update(1)
 
-            for token in tokens:
-                if random.random() < probability:
-                    replaced_token = replace_word_with_synonym(token)
-                    augmented_tokens.append(replaced_token)
-                else:
-                    augmented_tokens.append(token)
-
-                processed_tokens += 1
-
-                # Print progress
-                if progress:
-                    elapsed_time = time.time() - start_time
-                    if elapsed_time == 0:
-                        elapsed_time = 1e-6  # Set a small value to avoid division by zero
-                    tokens_per_sec = processed_tokens / elapsed_time
-                    print(f"Progress: {processed_tokens}/{num_tokens} tokens | {tokens_per_sec:.2f} tokens/sec", end="\r")
-
-            augmented_text.append(' '.join(augmented_tokens))
-        
-        # Print completion message
-        if progress:
-            print(" " * 100, end="\r")  # Clear progress line
-            print("Augmentation complete.")
+                augmented_text.append(' '.join(augmented_tokens))
 
     except Exception as e:
         print(f"An error occurred during text augmentation: {str(e)}")
@@ -175,6 +157,7 @@ def insert_random_word(text, word):
     - `str`: The text with the randomly inserted word.
     """
     try:
+        nltk.download("punkt", quiet=True)
         words = nltk.word_tokenize(text)
         words.insert(random.randint(0, len(words)), word)
         modified_text = " ".join(words)
@@ -184,7 +167,7 @@ def insert_random_word(text, word):
         return text
 
 
-def delete_random_word(text):
+def random_word_deletion(text, num_deletions=1):
     """
     Delete a random word from the input text.
 
@@ -193,20 +176,62 @@ def delete_random_word(text):
     
     Parameters:
     - `text` (str): The input text for word deletion.
+    - `num_deletions` (int): The number of words to delete.
 
     Returns:
     - `str`: The text with a randomly deleted word.
     """
     try:
+        nltk.download("punkt", quiet=True)
         words = nltk.word_tokenize(text)
-        if len(words) > 1:
-            words.pop(random.randint(0, len(words) - 1))
+        for _ in range(num_deletions):
+            if len(words) > 1:
+                words.pop(random.randint(0, len(words) - 1))
         modified_text = " ".join(words)
         return modified_text
     except Exception as e:
         print(f"An error occurred during word deletion: {str(e)}")
         return text
 
+def delete_random_word(text):
+    """
+    Delete a random word from the input text.
+
+    This function randomly deletes a word from the input text, creating variations
+    for text augmentation or diversity.
+
+    Parameters:
+    - `text` (str): The input text for word deletion.
+
+    Returns:
+    - `str`: The text with a randomly deleted word.
+    """
+    return random_word_deletion(text, num_deletions=1)
+
+def swap_random_words(text):
+    """
+    Swaps two random words in the text.
+
+    This function randomly swaps two words in the input text, creating variations
+    for text augmentation or diversity.
+
+    Parameters:
+    - `text` (str): The input text for word swapping.
+
+    Returns:
+    - `str`: The text with two words swapped.
+    """
+    try:
+        nltk.download("punkt", quiet=True)
+        words = nltk.word_tokenize(text)
+        if len(words) > 1:
+            idx1, idx2 = random.sample(range(len(words)), 2)
+            words[idx1], words[idx2] = words[idx2], words[idx1]
+        modified_text = " ".join(words)
+        return modified_text
+    except Exception as e:
+        print(f"An error occurred during word swapping: {str(e)}")
+        return text
 
 def insert_synonym(text, word):
     """
@@ -245,6 +270,8 @@ def paraphrase(text):
     - `str`: The paraphrased text.
     """
     try:
+        nltk.download("punkt", quiet=True)
+        nltk.download("averaged_perceptron_tagger", quiet=True)
         tokens = nltk.word_tokenize(text)
         tagged_tokens = nltk.pos_tag(tokens)
         paraphrased_tokens = [replace_word_with_synonym(token) if tag.startswith(("VB", "NN", "JJ")) else token for token, tag in tagged_tokens]
