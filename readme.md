@@ -1,9 +1,12 @@
 # DupliPy 0.2.6
+
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
 ![License Compliance](https://img.shields.io/badge/license-compliance-brightgreen.svg)
 ![PyPI Version](https://img.shields.io/pypi/v/duplipy)
+
+[DupliPy Documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation)
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image and tabular data augmentation.
 
@@ -67,7 +70,7 @@ Please ensure that you have one of these Python versions installed before using 
 - Tabular and Numerical Data Augmentation (CSV expansion, imputation, balancing).
 - Profanity removal, hate speech removal, offensive speech removal, and sensitive information removal.
 
-*For full reference documentation view [DupliPy's official documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation).*
+_For full reference documentation view [DupliPy's official documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation)._
 
 ## Usage
 
@@ -275,8 +278,6 @@ Contributions are welcome! If you encounter any issues, have suggestions, or wan
 DupliPy is released under the terms of the **MIT License (Modified)**. Please see the [LICENSE](https://github.com/infinitode/duplipy/blob/main/LICENSE) file for the full text.
 
 **Modified License Clause**
-
-
 
 The modified license clause grants users the permission to make derivative works based on the DupliPy software. However, it requires any substantial changes to the software to be clearly distinguished from the original work and distributed under a different name.
 
