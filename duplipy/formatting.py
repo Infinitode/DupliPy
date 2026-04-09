@@ -6,7 +6,7 @@ Available functions:
 - `remove_numbers(text)`: Remove numbers from the input text.
 - `remove_whitespace(text)`: Remove excess whitespace from the input text.
 - `normalize_whitespace(text)`: Normalize multiple whitespaces into a single whitespace in the input text.
-- `seperate_symbols(text)`: Separate symbols and words with a space to ease tokenization.
+- `separate_symbols(text)`: Separate symbols and words with a space to ease tokenization.
 - `remove_special_characters(text)`: Remove special characters from the input text.
 - `standardize_text(text)`: Standardize the formatting of the input text.
 - `tokenize_text(text)`: Tokenize the input text into individual words.
@@ -27,7 +27,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 
-def remove_stopwords(text):
+def remove_stopwords(text: str) -> str:
     """
     Remove stopwords from the input text using NLTK's stopwords.
 
@@ -51,7 +51,7 @@ def remove_stopwords(text):
         print(f"An error occurred during stopwords removal: {str(e)}")
         return text
 
-def remove_numbers(text):
+def remove_numbers(text: str) -> str:
     """
     Remove numbers from the input text.
 
@@ -70,7 +70,7 @@ def remove_numbers(text):
         print(f"An error occurred during number removal: {str(e)}")
         return text
 
-def remove_whitespace(text):
+def remove_whitespace(text: str) -> str:
     """
     Remove excess whitespace from the input text.
 
@@ -90,7 +90,7 @@ def remove_whitespace(text):
         print(f"An error occurred during whitespace removal: {str(e)}")
         return text
 
-def normalize_whitespace(text):
+def normalize_whitespace(text: str) -> str:
     """
     Normalize multiple whitespaces into a single whitespace in the input text.
 
@@ -110,7 +110,7 @@ def normalize_whitespace(text):
         print(f"An error occurred during whitespace normalization: {str(e)}")
         return text
 
-def separate_symbols(text):
+def separate_symbols(text: str) -> str:
     """
     Separate symbols and words with a space to ease tokenization.
 
@@ -118,10 +118,10 @@ def separate_symbols(text):
     easier tokenization and analysis of the text.
     
     Parameters:
-    - `text` (str): The input text from which symbols needs to be seperated.
+    - `text` (str): The input text from which symbols needs to be separated.
 
     Returns:
-    - `str`: The text from which symbols have been seperated.
+    - `str`: The text from which symbols have been separated.
     """
     try:
         pattern = r"([\W])"
@@ -131,7 +131,7 @@ def separate_symbols(text):
         print(f"An error occurred during symbol separation: {str(e)}")
         return text
 
-def remove_special_characters(text):
+def remove_special_characters(text: str) -> str:
     """
     Remove special characters from the input text.
 
@@ -153,7 +153,7 @@ def remove_special_characters(text):
         print(f"An error occurred during special character removal: {str(e)}")
         return text
 
-def standardize_text(text):
+def standardize_text(text: str) -> str:
     """
     Standardize the formatting of the input text.
 
@@ -174,7 +174,7 @@ def standardize_text(text):
         print(f"An error occurred during text standardization: {str(e)}")
         return text
 
-def tokenize_text(text):
+def tokenize_text(text: str) -> list[str]:
     """
     Tokenize the input text into individual words.
 
@@ -186,13 +186,13 @@ def tokenize_text(text):
     - `text` (str): The input text to be tokenized.
 
     Returns:
-    - `list`: A list of tokens (words) from the input text.
+    - `list[str]`: A list of tokens (words) from the input text.
     """
     nltk.download('punkt', quiet=True)
     tokens = word_tokenize(text)
     return tokens
 
-def stem_words(words):
+def stem_words(words: list[str]) -> list[str]:
     """
     Stem the input words using Porter stemming algorithm.
 
@@ -200,16 +200,16 @@ def stem_words(words):
     variations of words and simplify text analysis.
 
     Parameters:
-    - `words` (list): A list of words to be stemmed.
+    - `words` (list[str]): A list of words to be stemmed.
 
     Returns:
-    - `list`: A list of stemmed words.
+    - `list[str]`: A list of stemmed words.
     """
     stemmer = PorterStemmer()
     stemmed_words = [stemmer.stem(word) for word in words]
     return stemmed_words
 
-def lemmatize_words(words):
+def lemmatize_words(words: list[str]) -> list[str]:
     """
     Lemmatize the input words using WordNet lemmatization.
 
@@ -217,17 +217,17 @@ def lemmatize_words(words):
     normalize variations and simplify text analysis.
     
     Parameters:
-    - `words` (list): A list of words to be lemmatized.
+    - `words` (list[str]): A list of words to be lemmatized.
 
     Returns:
-    - `list`: A list of lemmatized words.
+    - `list[str]`: A list of lemmatized words.
     """
     nltk.download('wordnet', quiet=True)
     lemmatizer = WordNetLemmatizer()
     lemmatized_words = [lemmatizer.lemmatize(word) for word in words]
     return lemmatized_words
 
-def pos_tag(text):
+def pos_tag(text: str) -> list[tuple[str, str]]:
     """
     Perform part-of-speech (POS) tagging on the input text.
 
@@ -238,7 +238,7 @@ def pos_tag(text):
     - `text` (str): The input text to be POS tagged.
 
     Returns:
-    - `list`: A list of tuples containing (word, tag) pairs.
+    - `list[tuple[str, str]]`: A list of tuples containing (word, tag) pairs.
     """
     try:
         nltk.download('punkt', quiet=True)
@@ -250,7 +250,7 @@ def pos_tag(text):
         print(f"An error occurred during POS tagging: {str(e)}")
         return []
 
-def remove_profanity_from_text(text):
+def remove_profanity_from_text(text: str) -> str:
     """
     Remove profane words from the input text.
 
@@ -260,7 +260,7 @@ def remove_profanity_from_text(text):
     - `text` (str): The input text to remove profanity from.
 
     Returns:
-    - `text` (str): The cleaned output text.
+    - `str`: The cleaned output text.
     """
     nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
@@ -269,7 +269,7 @@ def remove_profanity_from_text(text):
 
     return cleaned_text
 
-def remove_sensitive_info_from_text(text):
+def remove_sensitive_info_from_text(text: str) -> str:
     """
     Remove sensitive information from the input text.
 
@@ -279,7 +279,7 @@ def remove_sensitive_info_from_text(text):
     - `text` (str): The input text to remove sensitive information from.
 
     Returns:
-    - `text` (str): The cleaned output text.
+    - `str`: The cleaned output text.
     """
     nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
@@ -288,7 +288,7 @@ def remove_sensitive_info_from_text(text):
 
     return cleaned_text
 
-def remove_hate_speech_from_text(text):
+def remove_hate_speech_from_text(text: str) -> str:
     """
     Remove hate speech or offensive speech from the input text.
 
@@ -298,7 +298,7 @@ def remove_hate_speech_from_text(text):
     - `text` (str): The input text to remove hate speech and offensive speech from.
 
     Returns:
-    - `text` (str): The cleaned output text.
+    - `str`: The cleaned output text.
     """
     nltk.download('punkt', quiet=True)
     sentences = nltk.sent_tokenize(text)
@@ -311,7 +311,7 @@ def remove_hate_speech_from_text(text):
 
     return cleaned_text
 
-def post_format_text(text):
+def post_format_text(text: str) -> str:
     """
     Post-format the text using regex.
 
