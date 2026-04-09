@@ -18,7 +18,7 @@ import nltk
 from nltk.metrics import distance
 from nltk.translate.bleu_score import sentence_bleu
 
-def edit_distance_score(text1, text2):
+def edit_distance_score(text1: str, text2: str) -> int:
     """
     Calculate the edit distance score between two texts.
 
@@ -42,7 +42,7 @@ def edit_distance_score(text1, text2):
         print(f"An error occurred during edit distance calculation: {str(e)}")
         return 0
     
-def bleu_score(reference, candidate):
+def bleu_score(reference: str, candidate: str) -> float:
     """
     Calculate the BLEU (Bilingual Evaluation Understudy) score between a reference sentence and a candidate sentence.
 
@@ -64,14 +64,14 @@ def bleu_score(reference, candidate):
 
         # Calculate the BLEU score
         bleu = sentence_bleu([reference_tokens], candidate_tokens)
-        return bleu
+        return float(bleu)
     except Exception as e:
         print(f"An error occurred during BLEU score calculation: {str(e)}")
         return 0.0
     
 # DupliPy 0.2.0
 
-def jaccard_similarity_score(text1, text2):
+def jaccard_similarity_score(text1: str, text2: str) -> float:
     """
     Calculate Jaccard similarity between two texts.
 
@@ -92,9 +92,9 @@ def jaccard_similarity_score(text1, text2):
     intersection = len(set1.intersection(set2))
     union = len(set1.union(set2))
     similarity_score = intersection / union if union != 0 else 0
-    return similarity_score
+    return float(similarity_score)
 
-def sorensen_dice_coefficient(text1, text2):
+def sorensen_dice_coefficient(text1: str, text2: str) -> float:
     """
     Calculate the Sorensen-Dice coefficient between two texts.
 
@@ -111,9 +111,9 @@ def sorensen_dice_coefficient(text1, text2):
     set1 = set(text1.split())
     set2 = set(text2.split())
     intersection = len(set1.intersection(set2))
-    return 2 * intersection / (len(set1) + len(set2))
+    return float(2 * intersection / (len(set1) + len(set2)))
 
-def cosine_similarity_score(text1, text2):
+def cosine_similarity_score(text1: str, text2: str) -> float:
     """
     Calculate the cosine similarity between two texts.
 
@@ -142,7 +142,7 @@ def cosine_similarity_score(text1, text2):
         return 0.0
     return float(numerator) / denominator
 
-def mean_squared_error(image1, image2):
+def mean_squared_error(image1: Image.Image, image2: Image.Image) -> float:
     """
     Calculate the mean squared error (MSE) between two images.
 
@@ -156,13 +156,13 @@ def mean_squared_error(image1, image2):
     Returns:
     - `float`: The mean squared error between the two images.
     """
-    image1 = np.array(image1)
-    image2 = np.array(image2)
-    err = np.sum((image1.astype("float") - image2.astype("float")) ** 2)
-    err /= float(image1.shape[0] * image1.shape[1])
-    return err
+    image1_arr = np.array(image1)
+    image2_arr = np.array(image2)
+    err = np.sum((image1_arr.astype("float") - image2_arr.astype("float")) ** 2)
+    err /= float(image1_arr.shape[0] * image1_arr.shape[1])
+    return float(err)
 
-def psnr(image1, image2):
+def psnr(image1: Image.Image, image2: Image.Image) -> float:
     """
     Calculate the peak signal-to-noise ratio (PSNR) between two images.
 
@@ -178,7 +178,7 @@ def psnr(image1, image2):
     """
     mse = mean_squared_error(image1, image2)
     if mse == 0:
-        return 100
+        return 100.0
     max_pixel = 255.0
-    psnr = 20 * math.log10(max_pixel / math.sqrt(mse))
-    return psnr
+    psnr_val = 20 * math.log10(max_pixel / math.sqrt(mse))
+    return float(psnr_val)

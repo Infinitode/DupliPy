@@ -1,11 +1,20 @@
-# DupliPy 0.2.5
+# DupliPy 0.2.6
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
 ![Downloads](https://pepy.tech/badge/duplipy)
 ![License Compliance](https://img.shields.io/badge/license-compliance-brightgreen.svg)
 ![PyPI Version](https://img.shields.io/pypi/v/duplipy)
 
-An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image augmentation.
+An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image and tabular data augmentation.
+
+## Changes in DupliPy 0.2.6
+
+- Added new CSV augmentation functions: `augment_csv_data` for automatic imputation, balancing, and expansion of tabular datasets.
+- Added new numerical data augmentation functions: `add_noise`, `scale_data`, and `shift_data`.
+- Added new time-series augmentation function: `augment_time_series` with automatic date pattern identification.
+- Added standalone dataset balancing function: `balance_dataset`.
+- Improved type hints throughout the library to support Python 3.10+ features.
+- Enhanced docstrings and documentation for better code clarity and linting.
 
 ## Changes in DupliPy 0.2.5
 
@@ -55,6 +64,7 @@ Please ensure that you have one of these Python versions installed before using 
 - BLEU Score Calculation: Calculate how well your text-based NLP model performs.
 - Named Entity Recognition: Identify and categorize key information in text.
 - Image Augmentation Tasks.
+- Tabular and Numerical Data Augmentation (CSV expansion, imputation, balancing).
 - Profanity removal, hate speech removal, offensive speech removal, and sensitive information removal.
 
 *For full reference documentation view [DupliPy's official documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation).*
@@ -210,6 +220,37 @@ text = "Apple is looking at buying U.K. startup for $1 billion"
 # Perform NER
 entities = named_entity_recognition(text)
 print(entities)
+```
+
+### Tabular Data Augmentation (CSV)
+
+```python
+from duplipy.replication import augment_csv_data
+
+# Augment a CSV file with automatic imputation and balancing
+augment_csv_data(
+    input_path="data.csv",
+    output_path="augmented_data.csv",
+    augmentation_factor=2,
+    balance_column="gender",
+    fill_missing=True
+)
+```
+
+### Numerical and Time-Series Augmentation
+
+```python
+from duplipy.replication import add_noise, augment_time_series
+
+# Add noise to numerical data
+data = [1.0, 2.0, 3.0, 4.0]
+noisy_data = add_noise(data, noise_factor=0.1)
+print(noisy_data)
+
+# Augment time-series data
+timestamps = ["2023-01-01", "2023-01-02", "2023-01-05"]
+augmented_timestamps = augment_time_series(timestamps, augmentation_factor=1)
+print(augmented_timestamps)
 ```
 
 ### Hate speech and Offensive speech removal using AI

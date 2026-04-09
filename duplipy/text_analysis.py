@@ -7,8 +7,9 @@ Available methods:
 """
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+from typing import Any
 
-def analyze_sentiment(text):
+def analyze_sentiment(text: str) -> float:
     """
     Analyze the sentiment of the input text using NLTK's SentimentIntensityAnalyzer.
 
@@ -26,12 +27,12 @@ def analyze_sentiment(text):
         sid = SentimentIntensityAnalyzer()
         sentiment_scores = sid.polarity_scores(text)
         sentiment_score = sentiment_scores['compound']
-        return sentiment_score
+        return float(sentiment_score)
     except Exception as e:
         print(f"An error occurred during sentiment analysis: {str(e)}")
         return 0.0
 
-def named_entity_recognition(text):
+def named_entity_recognition(text: str) -> list[Any]:
     """
     Perform named entity recognition (NER) on the input text.
 
@@ -53,7 +54,7 @@ def named_entity_recognition(text):
         tokens = nltk.word_tokenize(text)
         tagged = nltk.pos_tag(tokens)
         entities = nltk.chunk.ne_chunk(tagged)
-        return entities
+        return list(entities)
     except Exception as e:
         print(f"An error occurred during NER: {str(e)}")
         return []
