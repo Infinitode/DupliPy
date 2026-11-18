@@ -273,9 +273,9 @@ def paraphrase(text: str) -> str:
     - `str`: The paraphrased text.
     """
     try:
-        nltk.download("punkt", quiet=True)
-        nltk.download("averaged_perceptron_tagger", quiet=True)
-        tokens = nltk.word_tokenize(text)
+        ensure_nltk_data("taggers/averaged_perceptron_tagger_eng", "averaged_perceptron_tagger_eng")
+        ensure_nltk_data("taggers/averaged_perceptron_tagger", "averaged_perceptron_tagger")
+        tokens = safe_word_tokenize(text)
         tagged_tokens = nltk.pos_tag(tokens)
         paraphrased_tokens = [replace_word_with_synonym(token) if tag.startswith(("VB", "NN", "JJ")) else token for token, tag in tagged_tokens]
         paraphrased_text = " ".join(paraphrased_tokens)

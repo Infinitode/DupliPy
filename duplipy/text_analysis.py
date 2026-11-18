@@ -8,6 +8,7 @@ Available methods:
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from typing import Any
+from ._nltk_utils import ensure_nltk_data, safe_word_tokenize
 
 def analyze_sentiment(text: str) -> float:
     """
@@ -23,7 +24,7 @@ def analyze_sentiment(text: str) -> float:
     - `float`: The sentiment score ranging from -1 (negative) to 1 (positive).
     """
     try:
-        nltk.download('vader_lexicon', quiet=True)
+        ensure_nltk_data('sentiment/vader_lexicon.zip', 'vader_lexicon')
         sid = SentimentIntensityAnalyzer()
         sentiment_scores = sid.polarity_scores(text)
         sentiment_score = sentiment_scores['compound']
@@ -46,15 +47,15 @@ def named_entity_recognition(text: str) -> list[Any]:
     - `list`: A list of named entities found in the text.
     """
     try:
-        nltk.download('punkt', quiet=True)
-        nltk.download('averaged_perceptron_tagger', quiet=True)
-        nltk.download('maxent_ne_chunker', quiet=True)
-        nltk.download('maxent_ne_chunker_tab', quiet=True)
-        nltk.download('words', quiet=True)
-        tokens = nltk.word_tokenize(text)
+        ensure_nltk_data('taggers/averaged_perceptron_tagger_eng', 'averaged_perceptron_tagger_eng')
+        ensure_nltk_data('taggers/averaged_perceptron_tagger', 'averaged_perceptron_tagger')
+        ensure_nltk_data('chunkers/maxent_ne_chunker_tab', 'maxent_ne_chunker_tab')
+        ensure_nltk_data('chunkers/maxent_ne_chunker', 'maxent_ne_chunker')
+        ensure_nltk_data('corpora/words', 'words')
+        tokens = safe_word_tokenize(text)
         tagged = nltk.pos_tag(tokens)
         entities = nltk.chunk.ne_chunk(tagged)
-        return list(entities)
+        return entities
     except Exception as e:
         print(f"An error occurred during NER: {str(e)}")
         return []

@@ -1,4 +1,4 @@
-# DupliPy 0.2.6
+# DupliPy 0.2.7
 
 ![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)
 ![Code Size](https://img.shields.io/github/languages/code-size/infinitode/duplipy)
@@ -9,6 +9,15 @@
 [DupliPy Documentation](https://infinitode-docs.gitbook.io/documentation/package-documentation/duplipy-package-documentation)
 
 An open source Python library for text formatting, augmentation, and similarity calculation tasks in NLP, the package now also includes additional methods for image and tabular data augmentation.
+
+## Changes in DupliPy 0.2.7
+
+- Improved NLTK resource handling (`ensure_nltk_data`) to check local data before downloading, with support for NLTK 3.9+ (`punkt_tab`, `averaged_perceptron_tagger_eng`) and regex tokenization fallbacks (`safe_word_tokenize`, `safe_sent_tokenize`) when offline.
+- Fixed `ZeroDivisionError` in `sorensen_dice_coefficient` when comparing two empty strings.
+- Fixed `mean_squared_error` to account for all image channels (`image1_arr.size`) and raise a `ValueError` on mismatched image dimensions.
+- Fixed `named_entity_recognition` to return the `nltk.tree.Tree` object directly.
+- Updated `.github/workflows/build_and_publish.yml` to use `actions/checkout@v4`, `actions/setup-python@v5`, `pypa/gh-action-pypi-publish@release/v1`, `python -m build`, and `$GITHUB_OUTPUT`.
+- Dropped support for Python 3.6–3.9 (which have reached end-of-life and do not support PEP 604 `X | Y` union type hints used in the codebase); updated minimum supported Python version to `>=3.10` and added Python 3.13 classifier in `setup.py` and `readme.md`.
 
 ## Changes in DupliPy 0.2.6
 
@@ -46,15 +55,12 @@ pip install duplipy
 
 ## Supported Python Versions
 
-DupliPy supports the following Python versions:
+DupliPy supports the following Python versions (tested on Python 3.11):
 
-- Python 3.6
-- Python 3.7
-- Python 3.8
-- Python 3.9
 - Python 3.10
 - Python 3.11
-- Python 3.12 or later
+- Python 3.12
+- Python 3.13 or later
 
 Please ensure that you have one of these Python versions installed before using DupliPy. DupliPy may not work as expected on lower versions of Python than the supported.
 
