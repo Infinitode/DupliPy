@@ -17,6 +17,7 @@ from PIL import Image
 import nltk
 from nltk.metrics import distance
 from nltk.translate.bleu_score import sentence_bleu
+from ._nltk_utils import safe_word_tokenize
 
 def edit_distance_score(text1: str, text2: str) -> int:
     """
@@ -57,10 +58,9 @@ def bleu_score(reference: str, candidate: str) -> float:
     - `float`: The BLEU score. The score ranges from 0 (no similarity) to 1 (perfect match).
     """
     try:
-        nltk.download('punkt', quiet=True)
         # Tokenize the reference and candidate sentences
-        reference_tokens = nltk.word_tokenize(reference)
-        candidate_tokens = nltk.word_tokenize(candidate)
+        reference_tokens = safe_word_tokenize(reference)
+        candidate_tokens = safe_word_tokenize(candidate)
 
         # Calculate the BLEU score
         bleu = sentence_bleu([reference_tokens], candidate_tokens)
@@ -110,8 +110,11 @@ def sorensen_dice_coefficient(text1: str, text2: str) -> float:
     """
     set1 = set(text1.split())
     set2 = set(text2.split())
+    total = len(set1) + len(set2)
+    if total == 0:
+        return 1.0
     intersection = len(set1.intersection(set2))
-    return float(2 * intersection / (len(set1) + len(set2)))
+    return float(2 * intersection / total)
 
 def cosine_similarity_score(text1: str, text2: str) -> float:
     """
@@ -127,9 +130,8 @@ def cosine_similarity_score(text1: str, text2: str) -> float:
     Returns:
     - `float`: The cosine similarity score between the two texts.
     """
-    nltk.download('punkt', quiet=True)
-    vec1 = collections.Counter(nltk.word_tokenize(text1))
-    vec2 = collections.Counter(nltk.word_tokenize(text2))
+    vec1 = collections.Counter(safe_word_tokenize(text1))
+    vec2 = collections.Counter(safe_word_tokenize(text2))
 
     intersection = set(vec1.keys()) & set(vec2.keys())
     numerator = sum([vec1[x] * vec2[x] for x in intersection])
@@ -158,8 +160,14 @@ def mean_squared_error(image1: Image.Image, image2: Image.Image) -> float:
     """
     image1_arr = np.array(image1)
     image2_arr = np.array(image2)
+    if image1_arr.shape != image2_arr.shape:
+        raise ValueError(
+            f"Images must have the same dimensions and channels, got {image1_arr.shape} and {image2_arr.shape}"
+        )
+    if image1_arr.size == 0:
+        return 0.0
     err = np.sum((image1_arr.astype("float") - image2_arr.astype("float")) ** 2)
-    err /= float(image1_arr.shape[0] * image1_arr.shape[1])
+    err /= float(image1_arr.size)
     return float(err)
 
 def psnr(image1: Image.Image, image2: Image.Image) -> float:
